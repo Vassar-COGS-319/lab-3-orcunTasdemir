@@ -11,6 +11,30 @@
 
 random.walk.model <- function(samples, drift=0, sdrw=0.3, criterion=3){
   
+  accuracy.array <- c()
+  rt.array <- c()
+  
+  for (i in 1:samples) {
+    evd <-0
+    rep <- 0
+    repeat{
+    val <- rnorm(1, mean = drift, sd = sdrw)
+    evd <- evd + val
+    rep <- rep + 1
+    
+    if(evd < -criterion || evd > criterion){
+      
+      if(evd >= criterion){
+      accuracy.array[i] <- TRUE
+      }
+      else{
+      accuracy.array[i] <- FALSE
+      }
+      rt.array[i] <- rep
+      break
+      }
+    }
+  }
   output <- data.frame(
     correct = accuracy.array,
     rt = rt.array
@@ -40,3 +64,4 @@ incorrect.data <- initial.test %>% filter(correct==FALSE)
 
 hist(correct.data$rt)
 hist(incorrect.data$rt)
+
