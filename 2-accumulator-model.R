@@ -14,7 +14,7 @@
 # so faster rates mean that less evidence is likely to accumulate on each step. we could make
 # these parameters more intuitive by taking 1/rate.1 and 1/rate.2 as the values to rexp().
 
-accumulator.model <- function(samples, rate.1=40, rate.2=40, criterion=3){
+accumulator.model <- function(samples, rate.1, rate.2, criterion){
   
   accuracy.array <- c()
   rt.array <- c()
@@ -73,7 +73,7 @@ for(i in 1:samples){
 # 1000 samples and about half of the samples should be correct. the average rt will probably
 # be around 112, but might vary from that by a bit.
 
-initial.test <- accumulator.model(1000)
+initial.test <- accumulator.model(1000,40,40,3)
 sum(initial.test$correct) / length(initial.test$correct) # should be close to 0.5
 mean(initial.test$rt) # should be about 112
 
