@@ -15,7 +15,15 @@
 # You don't need to get a perfect match. Just get in the ballpark. 
 
 
-test <- accumulator.model(1000, 89.1, 82.3, 3)
+# test <- accumulator.model(1000, 89.1, 82.3, 3) #below are  the means I got for correct/incorrect
+# > mean(correct$rt)                             #and the accuracy rate of 0.205 which is very off
+# [1] 250.4732
+# > mean(incorrect$rt)
+# [1] 244.7057
+# > sum(test$correct) / length(test$correct)
+# [1] 0.205
+
+test <- accumulator.model(1000, 85, 91, 3)
 
 correct <- test %>% filter(correct==TRUE)
 incorrect <- test %>% filter(correct==FALSE)
@@ -26,13 +34,24 @@ sum(test$correct) / length(test$correct)
 
 #------------------------------------------------------------------------------
 
-test2 <- random.walk.model(1000, -0.00002 , 0.265 , 4)
+#test2 <- random.walk.model(1000, -0.00002 , 0.265 , 4) #this line gave me the stats below
+# > mean(correct2$rt)                                   #I simply couldn't get the correct numbers
+# [1] 239.0118
+# > mean(incorrect2$rt)
+# [1] 246.4705
+# > sum(test2$correct) / length(test2$correct)
+# [1] 0.509
+test2 <- random.walk.model(1000, 0.012 , 0.3, 4.8)
 
 correct2 <- test2 %>% filter(correct==TRUE)
 incorrect2 <- test2 %>% filter(correct==FALSE)
 
 mean(correct2$rt)
 mean(incorrect2$rt)
+
+#test2 %>% group_by(correct) %>% summarize(mean.rt = mean(rt))
+#the way you got the means here looks much nicer
+
 sum(test2$correct) / length(test2$correct)
 
 
